@@ -6,6 +6,7 @@ val scala3Version = "3.3.0"
 lazy val root = project
   .in(file("."))
   .settings(
+    organization := "ie.nok",
     name := "scala-libraries",
     version := DateTimeFormatter
       .ofPattern("yyyyMMdd.HHmmss.n")
