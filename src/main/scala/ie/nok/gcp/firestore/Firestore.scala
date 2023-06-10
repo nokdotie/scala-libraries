@@ -64,10 +64,7 @@ object Firestore {
             }
           }
 
-      val release = (firestore: com.google.cloud.firestore.Firestore) =>
-        ZIO.attempt(firestore.close()).orDie
-
-      ZIO.acquireRelease(acquire)(release).map { firestore =>
+      ZIO.fromAutoCloseable(acquire).map { firestore =>
         new Service {
           def allCollections: Task[List[CollectionReference]] =
             ZIO.attempt(firestore.listCollections.asScala.toList)

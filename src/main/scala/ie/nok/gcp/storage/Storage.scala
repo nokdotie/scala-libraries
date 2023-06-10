@@ -1,8 +1,5 @@
 package ie.nok.gcp.storage
 
-import java.net.URL
-import java.util.concurrent.TimeUnit
-
 import com.google.api.gax.paging.Page
 import com.google.cloud.storage.HmacKey.HmacKeyState
 import com.google.cloud.storage.Storage._
@@ -17,9 +14,11 @@ import com.google.cloud.storage.{
   StorageOptions
 }
 import com.google.cloud.{Policy, ReadChannel, WriteChannel}
-import zio._
-
+import ie.nok.gcp.auth.GoogleCredentials
+import java.net.URL
+import java.util.concurrent.TimeUnit
 import scala.jdk.CollectionConverters._
+import zio._
 
 object Storage {
   trait Service {
@@ -200,8 +199,17 @@ object Storage {
 
   def live: ZLayer[Scope, Throwable, Storage.Service] =
     ZLayer.fromZIO {
-
-      val acquire = ZIO.attempt(StorageOptions.newBuilder().build().getService)
+      val acquire =
+        GoogleCredentials.applicationDefault
+          .flatMap { credentials =>
+            ZIO.attempt {
+              StorageOptions.getDefaultInstance
+                .toBuilder()
+                .setCredentials(credentials)
+                .build()
+                .getService()
+            }
+          }
 
       ZIO.fromAutoCloseable(acquire).map { storage =>
         new Service {
