@@ -13,7 +13,11 @@ lazy val root = project
       .withZone(ZoneOffset.UTC)
       .format(Instant.now()),
     scalaVersion := scala3Version,
-    libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test,
+    libraryDependencies ++= Seq(
+      "com.google.firebase" % "firebase-admin" % "9.1.1",
+      "dev.zio" %% "zio" % "2.0.12",
+      "org.scalameta" %% "munit" % "0.7.29" % Test
+    ),
     githubOwner := "nok-ie",
     githubRepository := "scala-libraries"
   )
