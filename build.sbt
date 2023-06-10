@@ -16,6 +16,9 @@ lazy val root = project
     libraryDependencies ++= Seq(
       "com.google.firebase" % "firebase-admin" % "9.1.1",
       "dev.zio" %% "zio" % "2.0.12",
+      "dev.zio" %% "zio-http" % "0.0.4",
+      "dev.zio" %% "zio-json" % "0.4.2",
+      "org.jsoup" % "jsoup" % "1.15.3",
       "org.scalameta" %% "munit" % "0.7.29" % Test
     ),
     githubOwner := "nok-ie",
