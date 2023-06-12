@@ -14,3 +14,5 @@ jobs:
     uses: nok-ie/github-workflows/.github/workflows/scala-publish.yml@main
     with:
       SBT_PROJECT_ID: root
+    secrets:
+      GH_TOKEN_WRITE_PACKAGES: ${{ secrets.GH_TOKEN_WRITE_PACKAGES }}
