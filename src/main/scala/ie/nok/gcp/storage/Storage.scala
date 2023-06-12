@@ -197,7 +197,7 @@ object Storage {
     def writer(signedURL: URL): ZIO[Any, Throwable, WriteChannel]
   }
 
-  def live: ZLayer[Scope, Throwable, Storage.Service] =
+  def live: ZLayer[Scope, Throwable, Storage] =
     ZLayer.fromZIO {
       val acquire =
         GoogleCredentials.applicationDefault

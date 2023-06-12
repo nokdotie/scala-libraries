@@ -1,4 +1,4 @@
-package ie.nok.gcp.firestore
+package ie.nok.gcp
 
 import com.google.cloud.firestore.{Firestore => _, _}
 

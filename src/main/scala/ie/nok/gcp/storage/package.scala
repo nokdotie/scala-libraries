@@ -1,7 +1,4 @@
-package ie.nok.gcp.storage
-
-import java.net.URL
-import java.util.concurrent.TimeUnit
+package ie.nok.gcp
 
 import com.google.api.gax.paging.Page
 import com.google.cloud.storage.HmacKey.HmacKeyState
@@ -19,6 +16,9 @@ import com.google.cloud.storage.{
   StorageBatch,
   Storage => _
 }
+import java.nio.file.Path
+import java.net.URL
+import java.util.concurrent.TimeUnit
 import zio.ZIO
 
 package object storage {
