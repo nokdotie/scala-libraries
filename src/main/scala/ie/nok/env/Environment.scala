@@ -8,7 +8,7 @@ enum Environment {
 }
 
 object Environment {
-  val get: ZIO[System, SecurityException, Environment] =
+  val get: ZIO[Any, SecurityException, Environment] =
     System
       .env("ENV")
       .map {
