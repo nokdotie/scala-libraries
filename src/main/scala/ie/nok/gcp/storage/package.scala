@@ -77,6 +77,13 @@ package object storage {
   ): ZIO[Storage, Throwable, HmacKey] =
     ZIO.environmentWithZIO(_.get.createHmacKey(serviceAccount, options))
 
+  def createFrom(
+      blobInfo: BlobInfo,
+      path: Path,
+      options: List[BlobWriteOption]
+  ): ZIO[Storage, Throwable, Blob] =
+    ZIO.environmentWithZIO(_.get.createFrom(blobInfo, path, options))
+
   def delete(blobIds: List[BlobId]): ZIO[Storage, Throwable, List[Boolean]] =
     ZIO.environmentWithZIO(_.get.delete(blobIds))
 

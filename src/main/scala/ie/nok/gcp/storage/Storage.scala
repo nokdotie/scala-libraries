@@ -15,6 +15,7 @@ import com.google.cloud.storage.{
 }
 import com.google.cloud.{Policy, ReadChannel, WriteChannel}
 import ie.nok.gcp.auth.GoogleCredentials
+import java.nio.file.Path
 import java.net.URL
 import java.util.concurrent.TimeUnit
 import scala.jdk.CollectionConverters._
@@ -47,6 +48,11 @@ object Storage {
         serviceAccount: com.google.cloud.storage.ServiceAccount,
         options: List[CreateHmacKeyOption]
     ): ZIO[Any, Throwable, com.google.cloud.storage.HmacKey]
+    def createFrom(
+        blobInfo: BlobInfo,
+        path: Path,
+        options: List[BlobWriteOption]
+    ): ZIO[Any, Throwable, Blob]
     def delete(blobIds: List[BlobId]): ZIO[Any, Throwable, List[Boolean]]
     def delete(
         blobId: BlobId,
@@ -260,6 +266,13 @@ object Storage {
               options: List[CreateHmacKeyOption]
           ): ZIO[Any, Throwable, com.google.cloud.storage.HmacKey] =
             ZIO.attempt(storage.createHmacKey(serviceAccount, options: _*))
+
+          override def createFrom(
+              blobInfo: BlobInfo,
+              path: Path,
+              options: List[BlobWriteOption]
+          ): ZIO[Any, Throwable, Blob] =
+            ZIO.attempt(storage.createFrom(blobInfo, path, options: _*))
 
           override def delete(
               blobIds: List[BlobId]
