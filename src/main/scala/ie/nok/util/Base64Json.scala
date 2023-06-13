@@ -14,12 +14,14 @@ object Base64Json {
     value.toJson.getBytes(charset).pipe(encoder.encodeToString)
 
   def decode[A: JsonDecoder](str: String): ZIO[Any, Throwable, A] =
-    ZIO.attempt { decoder.decode(str) }
+    ZIO
+      .attempt { decoder.decode(str) }
       .map { new String(_, charset) }
       .flatMap { json =>
-          json.fromJson[A]
-              .left
-              .map { err => Throwable(s"$err: $json") }
-              .pipe(ZIO.fromEither)
+        json
+          .fromJson[A]
+          .left
+          .map { err => Throwable(s"$err: $json") }
+          .pipe(ZIO.fromEither)
       }
 }
