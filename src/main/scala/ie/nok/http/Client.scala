@@ -1,11 +1,12 @@
 package ie.nok.http
 
+import ie.nok.json.JsonDecoder
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import scala.util.chaining.scalaUtilChainingOps
 import zio.ZIO
 import zio.http.{Body, Client => ZioClient}
-import zio.json.{DecoderOps, JsonDecoder}
+import zio.json.{JsonDecoder => ZIOJsonDecoder}
 import zio.http.model.{Method, Headers}
 
 object Client {
@@ -20,18 +21,14 @@ object Client {
       .request(url, method, headers, content)
       .flatMap { _.body.asString }
 
-  def requestBodyAsJson[A: JsonDecoder](
+  def requestBodyAsJson[A: ZIOJsonDecoder](
       url: String,
       method: Method = Method.GET,
       headers: Headers = Headers.empty,
       content: Body = Body.empty
   ): ZIO[ZioClient, Throwable, A] =
     requestBody(url, method, headers, content)
-      .flatMap {
-        _.fromJson[A].left
-          .map(Throwable(_))
-          .pipe(ZIO.fromEither)
-      }
+      .flatMap { JsonDecoder.decode[A] }
 
   def requestBodyAsHtml(
       url: String,
