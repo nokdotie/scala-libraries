@@ -15,7 +15,7 @@ lazy val root = project
     scalaVersion := scala3Version,
     libraryDependencies ++= Seq(
       "com.google.firebase" % "firebase-admin" % "9.1.1",
-      "dev.zio" %% "zio" % "2.0.12",
+      "dev.zio" %% "zio" % "2.0.15",
       "dev.zio" %% "zio-http" % "0.0.4",
       "dev.zio" %% "zio-json" % "0.4.2",
       "org.jsoup" % "jsoup" % "1.15.3",
