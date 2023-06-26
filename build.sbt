@@ -14,6 +14,7 @@ lazy val root = project
       .format(Instant.now()),
     scalaVersion := scala3Version,
     libraryDependencies ++= Seq(
+      "io.netty" % "netty-all" % "4.1.94.Final",
       "com.google.firebase" % "firebase-admin" % "9.2.0",
       "dev.zio" %% "zio" % "2.0.15",
       "dev.zio" %% "zio-http" % "0.0.5",
