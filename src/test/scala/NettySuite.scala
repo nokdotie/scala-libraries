@@ -13,10 +13,6 @@ class NettySuite extends munit.FunSuite {
         Client.fromConfig
       )
       .pipe(ZIO.unsafeRun)
-      .toEither
-      .pipe {
-        case Left(a)  => fail("Netty failed", a)
-        case Right(_) => true
-      }
+      .foldExit(cause => fail("Netty failed", cause.squash), _ => ())
   }
 }
