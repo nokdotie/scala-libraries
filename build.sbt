@@ -20,7 +20,8 @@ lazy val root = project
       "dev.zio" %% "zio-http" % "0.0.5",
       "dev.zio" %% "zio-json" % "0.5.0",
       "org.jsoup" % "jsoup" % "1.16.1",
-      "org.scalameta" %% "munit" % "0.7.29" % Test
+      "org.scalameta" %% "munit" % "0.7.29" % Test,
+      "org.scalameta" %% "munit-scalacheck" % "0.7.29" % Test
     ),
     githubOwner := "nok-ie",
     githubRepository := "scala-libraries"
