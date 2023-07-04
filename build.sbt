@@ -18,7 +18,7 @@ lazy val root = project
       "com.google.firebase" % "firebase-admin" % "9.2.0",
       "dev.zio" %% "zio" % "2.0.15",
       "dev.zio" %% "zio-http" % "0.0.5",
-      "dev.zio" %% "zio-json" % "0.5.0",
+      "dev.zio" %% "zio-json" % "0.6.0",
       "org.jsoup" % "jsoup" % "1.16.1",
       "org.scalameta" %% "munit" % "0.7.29" % Test,
       "org.scalameta" %% "munit-scalacheck" % "0.7.29" % Test
