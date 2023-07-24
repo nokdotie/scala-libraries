@@ -1,9 +1,9 @@
-package ie.nok.unit
+package ie.nok.geographic
 
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalacheck.Arbitrary.arbitrary
 
-val genCoordinates: Gen[Coordinates] = for {
+private val genCoordinates: Gen[Coordinates] = for {
   latitude <- arbitrary[BigDecimal]
   longitude <- arbitrary[BigDecimal]
   coordinates = Coordinates(
@@ -12,5 +12,4 @@ val genCoordinates: Gen[Coordinates] = for {
   )
 } yield coordinates
 
-implicit val arbCoordinates: Arbitrary[Coordinates] =
-  Arbitrary(genCoordinates)
+given Arbitrary[Coordinates] = Arbitrary(genCoordinates)
