@@ -8,5 +8,6 @@ case class FeatureCollection[A](
 )
 
 object FeatureCollection {
-    given [A: JsonEncoder]: JsonEncoder[FeatureCollection[A]] = DeriveJsonEncoder.gen[FeatureCollection[A]]
+  given [A: JsonEncoder]: JsonEncoder[FeatureCollection[A]] =
+    DeriveJsonEncoder.gen[FeatureCollection[A]]
 }

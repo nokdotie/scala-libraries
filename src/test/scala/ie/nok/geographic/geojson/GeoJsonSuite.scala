@@ -4,7 +4,8 @@ import zio.json.EncoderOps
 
 class GeoJsonSuite extends munit.FunSuite {
   test("GeoJSON encodes to expected JSON") {
-    val expected = """{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[125.6,10.1]},"properties":{"name":"Dinagat Islands"}}]}"""
+    val expected =
+      """{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[125.6,10.1]},"properties":{"name":"Dinagat Islands"}}]}"""
     val obtained = FeatureCollection(
       features = List(
         Feature(

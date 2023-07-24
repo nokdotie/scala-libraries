@@ -5,9 +5,10 @@ import zio.json.{JsonEncoder, DeriveJsonEncoder}
 case class Feature[A](
     `type`: String = "Feature",
     geometry: Geometry,
-    properties: A,
+    properties: A
 )
 
 object Feature {
-    given [A: JsonEncoder]: JsonEncoder[Feature[A]] = DeriveJsonEncoder.gen[Feature[A]]
+  given [A: JsonEncoder]: JsonEncoder[Feature[A]] =
+    DeriveJsonEncoder.gen[Feature[A]]
 }
