@@ -41,7 +41,7 @@ object Client {
     requestBody(url, method, headers, content)
       .flatMap { html => ZIO.attempt { Jsoup.parse(html) } }
 
-  def requestBodyAsFile(
+  def requestBodyAsTempFile(
       url: String,
       method: Method = Method.GET,
       headers: Headers = Headers.empty,
