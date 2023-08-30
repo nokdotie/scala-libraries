@@ -10,4 +10,6 @@ object Coordinates {
 
   def toGeoJsonGeometry(coordinates: Coordinates): Geometry =
     Geometry(coordinates = List(coordinates.longitude, coordinates.latitude))
+
+  val zero = Coordinates(0, 0)
 }

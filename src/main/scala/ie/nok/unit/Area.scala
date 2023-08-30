@@ -27,5 +27,5 @@ object Area {
         new Area(area.value * 10000, AreaUnit.SquareMetres)
     }
 
-  val empty = new Area(0, AreaUnit.SquareMetres)
+  val zero = new Area(0, AreaUnit.SquareMetres)
 }
