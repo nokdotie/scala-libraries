@@ -16,11 +16,11 @@ lazy val root = project
     libraryDependencies ++= Seq(
       "ch.hsr" % "geohash" % "1.4.0",
       "com.google.firebase" % "firebase-admin" % "9.2.0",
-      "dev.zio" %% "zio" % "2.0.15",
+      "dev.zio" %% "zio" % "2.0.16",
       "dev.zio" %% "zio-http" % "0.0.5",
-      "dev.zio" %% "zio-json" % "0.6.0",
+      "dev.zio" %% "zio-json" % "0.6.1",
       "dev.zio" %% "zio-nio" % "2.0.1",
-      "io.netty" % "netty-all" % "4.1.96.Final",
+      "io.netty" % "netty-all" % "4.1.97.Final",
       "org.jsoup" % "jsoup" % "1.16.1",
       "org.scalameta" %% "munit" % "0.7.29" % Test,
       "org.scalameta" %% "munit-scalacheck" % "0.7.29" % Test
