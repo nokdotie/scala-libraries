@@ -1,7 +1,7 @@
 import java.time.format.DateTimeFormatter
 import java.time.{Instant, ZoneOffset}
 
-val scala3Version = "3.3.0"
+val scala3Version = "3.3.1"
 
 lazy val root = project
   .in(file("."))
@@ -18,8 +18,8 @@ lazy val root = project
       "com.google.firebase" % "firebase-admin" % "9.2.0",
       "dev.zio" %% "zio" % "2.0.16",
       "dev.zio" %% "zio-http" % "0.0.5",
-      "dev.zio" %% "zio-json" % "0.6.1",
-      "dev.zio" %% "zio-nio" % "2.0.1",
+      "dev.zio" %% "zio-json" % "0.6.2",
+      "dev.zio" %% "zio-nio" % "2.0.2",
       "io.netty" % "netty-all" % "4.1.97.Final",
       "org.jsoup" % "jsoup" % "1.16.1",
       "org.scalameta" %% "munit" % "0.7.29" % Test,
