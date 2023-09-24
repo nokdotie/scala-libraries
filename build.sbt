@@ -16,7 +16,7 @@ lazy val root = project
     libraryDependencies ++= Seq(
       "ch.hsr" % "geohash" % "1.4.0",
       "com.google.firebase" % "firebase-admin" % "9.2.0",
-      "dev.zio" %% "zio" % "2.0.16",
+      "dev.zio" %% "zio" % "2.0.17",
       "dev.zio" %% "zio-http" % "0.0.5",
       "dev.zio" %% "zio-json" % "0.6.2",
       "dev.zio" %% "zio-nio" % "2.0.2",
