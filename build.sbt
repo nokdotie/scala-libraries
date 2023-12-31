@@ -21,7 +21,7 @@ lazy val root = project
       "dev.zio" %% "zio-json" % "0.6.2",
       "dev.zio" %% "zio-nio" % "2.0.2",
       "io.netty" % "netty-all" % "4.1.104.Final",
-      "org.jsoup" % "jsoup" % "1.16.2",
+      "org.jsoup" % "jsoup" % "1.17.2",
       "org.scalameta" %% "munit" % "0.7.29" % Test,
       "org.scalameta" %% "munit-scalacheck" % "0.7.29" % Test
     ),
