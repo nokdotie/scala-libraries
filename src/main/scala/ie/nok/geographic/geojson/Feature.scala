@@ -1,6 +1,6 @@
 package ie.nok.geographic.geojson
 
-import zio.json.{JsonEncoder, DeriveJsonEncoder}
+import zio.json.{DeriveJsonEncoder, JsonEncoder}
 
 case class Feature[A](
     `type`: String = "Feature",

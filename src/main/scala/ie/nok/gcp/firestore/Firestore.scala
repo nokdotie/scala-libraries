@@ -3,10 +3,11 @@ package ie.nok.gcp.firestore
 import com.google.api.core.ApiFutureToListenableFuture
 import com.google.api.gax.core.FixedCredentialsProvider
 import com.google.cloud.firestore
-import com.google.cloud.firestore.{Firestore => _, _}
+import com.google.cloud.firestore.{Firestore as _, *}
 import ie.nok.gcp.auth.GoogleCredentials
-import scala.jdk.CollectionConverters._
-import zio._
+import zio.*
+
+import scala.jdk.CollectionConverters.*
 
 object Firestore {
 
@@ -53,14 +54,13 @@ object Firestore {
         GoogleCredentials.applicationDefault
           .flatMap { credentials =>
             ZIO.attempt {
-              FirestoreOptions
-                .getDefaultInstance()
+              FirestoreOptions.getDefaultInstance
                 .toBuilder()
                 .setCredentialsProvider(
                   FixedCredentialsProvider.create(credentials)
                 )
                 .build()
-                .getService()
+                .getService
             }
           }
 

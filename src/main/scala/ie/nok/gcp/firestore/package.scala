@@ -1,7 +1,6 @@
 package ie.nok.gcp
 
-import com.google.cloud.firestore.{Firestore => _, _}
-
+import com.google.cloud.firestore.{Firestore as _, *}
 import zio.{RIO, ZIO}
 
 package object firestore {

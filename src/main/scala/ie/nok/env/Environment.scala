@@ -1,6 +1,6 @@
 package ie.nok.env
 
-import zio.{ZIO, System}
+import zio.{System, ZIO}
 
 enum Environment {
   case Production

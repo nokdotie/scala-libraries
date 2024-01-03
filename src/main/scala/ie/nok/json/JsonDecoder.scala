@@ -1,8 +1,9 @@
 package ie.nok.json
 
-import scala.util.chaining.scalaUtilChainingOps
 import zio.ZIO
 import zio.json.{DecoderOps, JsonDecoder}
+
+import scala.util.chaining.scalaUtilChainingOps
 
 object JsonDecoder {
 

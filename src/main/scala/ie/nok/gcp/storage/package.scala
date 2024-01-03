@@ -2,24 +2,13 @@ package ie.nok.gcp
 
 import com.google.api.gax.paging.Page
 import com.google.cloud.storage.HmacKey.HmacKeyState
-import com.google.cloud.storage.Storage._
-import com.google.cloud.storage.{
-  Acl,
-  Blob,
-  BlobId,
-  BlobInfo,
-  Bucket,
-  BucketInfo,
-  CopyWriter,
-  HmacKey,
-  ServiceAccount,
-  StorageBatch,
-  Storage => _
-}
-import java.nio.file.Path
-import java.net.URL
-import java.util.concurrent.TimeUnit
+import com.google.cloud.storage.Storage.*
+import com.google.cloud.storage.{Acl, Blob, BlobId, BlobInfo, Bucket, BucketInfo, CopyWriter, HmacKey, ServiceAccount, StorageBatch, Storage as _}
 import zio.ZIO
+
+import java.net.URL
+import java.nio.file.Path
+import java.util.concurrent.TimeUnit
 
 package object storage {
 

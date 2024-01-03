@@ -1,7 +1,7 @@
 package ie.nok.geographic.geojson
 
-import org.scalacheck.{Arbitrary, Gen}
 import org.scalacheck.Arbitrary.arbitrary
+import org.scalacheck.{Arbitrary, Gen}
 
 private def genFeatureCollection[A: Arbitrary]: Gen[FeatureCollection[A]] =
   for {

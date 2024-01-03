@@ -3,13 +3,14 @@ package ie.nok.http
 import ie.nok.json.JsonDecoder
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import scala.util.chaining.scalaUtilChainingOps
-import zio.{Scope, ZIO}
-import zio.http.{Body, Client => ZioClient}
-import zio.json.{JsonDecoder => ZIOJsonDecoder}
+import zio.http.model.{Headers, Method}
+import zio.http.{Body, Client as ZioClient}
+import zio.json.JsonDecoder as ZIOJsonDecoder
 import zio.nio.file.{Files, Path}
-import zio.http.model.{Method, Headers}
 import zio.stream.ZSink
+import zio.{Scope, ZIO}
+
+import scala.util.chaining.scalaUtilChainingOps
 
 object Client {
 
@@ -47,9 +48,9 @@ object Client {
       headers: Headers = Headers.empty,
       content: Body = Body.empty
   ): ZIO[ZioClient & Scope, Throwable, Path] = for {
-    path <- Files.createTempFileScoped()
+    path     <- Files.createTempFileScoped()
     response <- ZioClient.request(url, method, headers, content)
-    _ <- response.body.asStream.run(ZSink.fromFile(path.toFile))
+    _        <- response.body.asStream.run(ZSink.fromFile(path.toFile))
   } yield path
 
 }

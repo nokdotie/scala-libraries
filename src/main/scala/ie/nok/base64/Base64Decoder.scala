@@ -1,7 +1,8 @@
 package ie.nok.base64
 
-import java.util.Base64
 import zio.ZIO
+
+import java.util.Base64
 
 object Base64Decoder {
   private val decoder = Base64.getUrlDecoder

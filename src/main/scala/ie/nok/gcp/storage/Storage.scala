@@ -1,25 +1,17 @@
 package ie.nok.gcp.storage
 
 import com.google.api.gax.paging.Page
+import com.google.cloud.storage.*
 import com.google.cloud.storage.HmacKey.HmacKeyState
-import com.google.cloud.storage.Storage._
-import com.google.cloud.storage.{
-  Acl,
-  Blob,
-  BlobId,
-  BlobInfo,
-  BucketInfo,
-  CopyWriter,
-  StorageBatch,
-  StorageOptions
-}
+import com.google.cloud.storage.Storage.*
 import com.google.cloud.{Policy, ReadChannel, WriteChannel}
 import ie.nok.gcp.auth.GoogleCredentials
-import java.nio.file.Path
+import zio.*
+
 import java.net.URL
+import java.nio.file.Path
 import java.util.concurrent.TimeUnit
-import scala.jdk.CollectionConverters._
-import zio._
+import scala.jdk.CollectionConverters.*
 
 object Storage {
   trait Service {
@@ -213,7 +205,7 @@ object Storage {
                 .toBuilder()
                 .setCredentials(credentials)
                 .build()
-                .getService()
+                .getService
             }
           }
 
@@ -250,8 +242,7 @@ object Storage {
           ): ZIO[Any, Throwable, Blob] =
             ZIO.attempt(storage.create(blobInfo, content, options: _*))
 
-          override def createAcl(blobId: BlobId, acl: Acl)
-              : ZIO[Any, Throwable, Acl] =
+          override def createAcl(blobId: BlobId, acl: Acl): ZIO[Any, Throwable, Acl] =
             ZIO.attempt(storage.createAcl(blobId, acl))
 
           override def createAcl(
@@ -281,8 +272,7 @@ object Storage {
               storage.delete(blobIds: _*).asScala.toList.map(Boolean.unbox(_))
             )
 
-          override def delete(blobId: BlobId, options: List[BlobSourceOption])
-              : ZIO[Any, Throwable, Boolean] =
+          override def delete(blobId: BlobId, options: List[BlobSourceOption]): ZIO[Any, Throwable, Boolean] =
             ZIO.attempt(storage.delete(blobId, options: _*))
 
           override def delete(
@@ -296,8 +286,7 @@ object Storage {
                 .map(Boolean.unbox(_))
             )
 
-          override def delete(bucket: String, options: List[BucketSourceOption])
-              : ZIO[Any, Throwable, Boolean] =
+          override def delete(bucket: String, options: List[BucketSourceOption]): ZIO[Any, Throwable, Boolean] =
             ZIO.attempt(storage.delete(bucket, options: _*))
 
           override def delete(
@@ -307,8 +296,7 @@ object Storage {
           ): ZIO[Any, Throwable, Boolean] =
             ZIO.attempt(storage.delete(bucket, blob, options: _*))
 
-          override def deleteAcl(blob: BlobId, entity: Acl.Entity)
-              : ZIO[Any, Throwable, Boolean] =
+          override def deleteAcl(blob: BlobId, entity: Acl.Entity): ZIO[Any, Throwable, Boolean] =
             ZIO.attempt(storage.deleteAcl(blob, entity))
 
           override def deleteAcl(
@@ -318,8 +306,7 @@ object Storage {
           ): ZIO[Any, Throwable, Boolean] =
             ZIO.attempt(storage.deleteAcl(bucket, entity, options: _*))
 
-          override def deleteDefaultAcl(bucket: String, entity: Acl.Entity)
-              : ZIO[Any, Throwable, Boolean] =
+          override def deleteDefaultAcl(bucket: String, entity: Acl.Entity): ZIO[Any, Throwable, Boolean] =
             ZIO.attempt(storage.deleteDefaultAcl(bucket, entity))
 
           override def deleteHmacKey(
@@ -333,8 +320,7 @@ object Storage {
           ): ZIO[Any, Throwable, List[Blob]] =
             ZIO.attempt(storage.get(blobIds.asJavaCollection).asScala.toList)
 
-          override def get(blobId: BlobId, options: List[BlobGetOption])
-              : ZIO[Any, Throwable, Option[Blob]] =
+          override def get(blobId: BlobId, options: List[BlobGetOption]): ZIO[Any, Throwable, Option[Blob]] =
             ZIO.attempt(Option(storage.get(blobId, options: _*)))
 
           override def get(
@@ -342,8 +328,7 @@ object Storage {
           ): ZIO[Any, Throwable, List[Blob]] =
             ZIO.attempt(storage.get(blobIds.asJavaCollection).asScala.toList)
 
-          override def getAcl(blob: BlobId, entity: Acl.Entity)
-              : ZIO[Any, Throwable, Option[Acl]] =
+          override def getAcl(blob: BlobId, entity: Acl.Entity): ZIO[Any, Throwable, Option[Acl]] =
             ZIO.attempt(Option(storage.getAcl(blob, entity)))
 
           override def getAcl(
@@ -353,8 +338,7 @@ object Storage {
           ): ZIO[Any, Throwable, Option[Acl]] =
             ZIO.attempt(Option(storage.getAcl(bucket, entity, options: _*)))
 
-          override def getDefaultAcl(bucket: String, entity: Acl.Entity)
-              : ZIO[Any, Throwable, Option[Acl]] =
+          override def getDefaultAcl(bucket: String, entity: Acl.Entity): ZIO[Any, Throwable, Option[Acl]] =
             ZIO.attempt(Option(storage.getDefaultAcl(bucket, entity)))
 
           override def getHmacKey(
@@ -386,8 +370,7 @@ object Storage {
             com.google.api.gax.paging.Page[com.google.cloud.storage.Bucket]
           ] = ZIO.attempt(storage.list(options: _*))
 
-          override def list(bucket: String, options: List[BlobListOption])
-              : ZIO[Any, Throwable, com.google.api.gax.paging.Page[Blob]] =
+          override def list(bucket: String, options: List[BlobListOption]): ZIO[Any, Throwable, com.google.api.gax.paging.Page[Blob]] =
             ZIO.attempt(storage.list(bucket, options: _*))
 
           override def listAcls(blob: BlobId): ZIO[Any, Throwable, List[Acl]] =
@@ -430,8 +413,7 @@ object Storage {
           ): ZIO[Any, Throwable, Array[Byte]] =
             ZIO.attempt(storage.readAllBytes(bucket, blob, options: _*))
 
-          override def reader(blob: BlobId, options: List[BlobSourceOption])
-              : ZIO[Any, Throwable, ReadChannel] =
+          override def reader(blob: BlobId, options: List[BlobSourceOption]): ZIO[Any, Throwable, ReadChannel] =
             ZIO.attempt(storage.reader(blob, options: _*))
 
           override def reader(
@@ -485,8 +467,7 @@ object Storage {
           ): ZIO[Any, Throwable, com.google.cloud.storage.Bucket] =
             ZIO.attempt(storage.update(bucketInfo, options: _*))
 
-          override def updateAcl(blobId: BlobId, acl: Acl)
-              : ZIO[Any, Throwable, Acl] =
+          override def updateAcl(blobId: BlobId, acl: Acl): ZIO[Any, Throwable, Acl] =
             ZIO.attempt(storage.updateAcl(blobId, acl))
 
           override def updateAcl(
@@ -496,8 +477,7 @@ object Storage {
           ): ZIO[Any, Throwable, Acl] =
             ZIO.attempt(storage.updateAcl(bucket, acl, options: _*))
 
-          override def updateDefaultAcl(bucket: String, acl: Acl)
-              : ZIO[Any, Throwable, Acl] =
+          override def updateDefaultAcl(bucket: String, acl: Acl): ZIO[Any, Throwable, Acl] =
             ZIO.attempt(storage.updateDefaultAcl(bucket, acl))
 
           override def updateHmacKeyState(
