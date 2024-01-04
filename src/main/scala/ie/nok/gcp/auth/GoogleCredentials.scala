@@ -1,14 +1,14 @@
 package ie.nok.gcp.auth
 
-import com.google.auth.oauth2.{GoogleCredentials => OfficialGoogleCredentials}
+import com.google.auth.oauth2.GoogleCredentials as OfficialGoogleCredentials
+import zio.ZIO
+
 import java.io.{ByteArrayInputStream, IOException}
 import scala.util.chaining.scalaUtilChainingOps
-import zio.ZIO
 
 object GoogleCredentials {
 
-  private val officialApplicationDefault
-      : ZIO[Any, Throwable, OfficialGoogleCredentials] =
+  private val officialApplicationDefault: ZIO[Any, Throwable, OfficialGoogleCredentials] =
     ZIO.attempt { OfficialGoogleCredentials.getApplicationDefault() }
 
   // TODO: properly authenticate on GitHub Action

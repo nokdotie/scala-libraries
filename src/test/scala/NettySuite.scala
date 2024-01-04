@@ -1,8 +1,7 @@
-package ie.nok
-
-import ie.nok.zio.ZIO
-import scala.util.chaining.scalaUtilChainingOps
 import _root_.zio.http.{Client, ClientConfig}
+import ie.nok.zio.ZIOOps
+
+import scala.util.chaining.scalaUtilChainingOps
 
 class NettySuite extends munit.FunSuite {
   test("Netty works") {
@@ -12,7 +11,7 @@ class NettySuite extends munit.FunSuite {
         ClientConfig.default,
         Client.fromConfig
       )
-      .pipe(ZIO.unsafeRun)
+      .pipe(ZIOOps.unsafeRun)
       .foldExit(cause => fail("Netty failed", cause.squash), _ => ())
   }
 }

@@ -1,6 +1,6 @@
 package ie.nok.unit
 
-import zio.json.{JsonCodec, DeriveJsonCodec}
+import zio.json.{DeriveJsonCodec, JsonCodec}
 
 enum AreaUnit {
   case SquareMetres
