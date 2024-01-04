@@ -25,7 +25,7 @@ lazy val root = project
       "org.scalameta"      %% "munit"            % "0.7.29" % Test,
       "org.scalameta"      %% "munit-scalacheck" % "0.7.29" % Test
     ),
-    githubOwner            := "nok-ie",
+    githubOwner            := "nokdotie",
     githubRepository       := "scala-libraries",
     Test / publishArtifact := true
   )
