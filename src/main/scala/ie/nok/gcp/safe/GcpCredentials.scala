@@ -9,6 +9,12 @@ import scala.util.chaining.*
 
 object GcpCredentials {
 
+  def fromResource(resource: String): Try[GoogleCredentials] = Try {
+    getClass
+      .getResourceAsStream(resource)
+      .pipe { GoogleCredentials.fromStream }
+  }
+
   val googleCredentialsFromEnv: Try[GoogleCredentials] = Try {
     sys
       .env("GCP_CREDENTIALS")
