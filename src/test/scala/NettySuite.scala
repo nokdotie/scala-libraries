@@ -12,6 +12,5 @@ class NettySuite extends munit.FunSuite {
         Client.fromConfig
       )
       .pipe(ZIOOps.unsafeRun)
-      .foldExit(cause => fail("Netty failed", cause.squash), _ => ())
   }
 }

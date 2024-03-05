@@ -4,7 +4,7 @@ import com.google.api.core.ApiFutureToListenableFuture
 import com.google.api.gax.core.FixedCredentialsProvider
 import com.google.cloud.firestore
 import com.google.cloud.firestore.{Firestore as _, *}
-import ie.nok.gcp.auth.GoogleCredentials
+import ie.nok.gcp.Credentials
 import zio.*
 
 import scala.jdk.CollectionConverters.*
@@ -51,7 +51,8 @@ object Firestore {
   val live: ZLayer[Scope, Throwable, Firestore] =
     ZLayer.fromZIO {
       val acquire: Task[firestore.Firestore] =
-        GoogleCredentials.applicationDefault
+        ZIO
+          .fromTry { Credentials.default }
           .flatMap { credentials =>
             ZIO.attempt {
               FirestoreOptions.getDefaultInstance

@@ -1,10 +1,7 @@
 package ie.nok.gcp.search
 
-import ie.nok.zio.ZIOOps
-import scala.util.chaining.scalaUtilChainingOps
-
 class IndexingClientImplSuite extends munit.FunSuite {
-  val instance = IndexingClientImpl.instance.get
+  val instance = IndexingClientImpl.default.get
 
   test("GoogleSearchApiImpl notifies Google's Indexing service of an update") {
     instance

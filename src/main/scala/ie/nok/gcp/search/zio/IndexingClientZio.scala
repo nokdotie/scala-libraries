@@ -12,8 +12,10 @@ trait IndexingClientZio {
 }
 
 object IndexingClientZio {
+
   def update(url: String): ZIO[IndexingClientZio, Throwable, Unit] = ZIO.serviceWithZIO[IndexingClientZio](_.update(url))
   def delete(url: String): ZIO[IndexingClientZio, Throwable, Unit] = ZIO.serviceWithZIO[IndexingClientZio](_.delete(url))
+
 }
 
 class IndexingClientZioImpl(indexingClient: IndexingClient) extends IndexingClientZio {
@@ -27,7 +29,7 @@ object IndexingClientZioImpl {
 
   val layer: ZLayer[Any, Throwable, IndexingClientZio] =
     ZIO
-      .fromTry { IndexingClientImpl.instance }
+      .fromTry { IndexingClientImpl.default }
       .map { IndexingClientZioImpl(_) }
       .pipe { ZLayer.fromZIO(_) }
 

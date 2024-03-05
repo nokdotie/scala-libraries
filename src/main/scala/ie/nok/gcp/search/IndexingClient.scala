@@ -6,7 +6,7 @@ import com.google.api.services.indexing.v3.model.UrlNotification
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
 import com.google.auth.http.HttpCredentialsAdapter
-import ie.nok.gcp.safe.GcpCredentials
+import ie.nok.gcp.Credentials
 import scala.util.chaining.scalaUtilChainingOps
 import scala.util.Try
 
@@ -39,7 +39,7 @@ object IndexingClientImpl {
     IndexingClientImpl(indexing)
   }
 
-  lazy val instance: Try[IndexingClient] = GcpCredentials
+  lazy val default: Try[IndexingClient] = Credentials
     .fromResource("/gcp/google-search-console.json")
     .map { _.createScoped(IndexingScopes.INDEXING) }
     .map { fromCredentials }

@@ -1,13 +1,11 @@
-package ie.nok.gcp.safe
+package ie.nok.gcp
 
 import com.google.auth.oauth2.GoogleCredentials
-import com.google.cloud.storage.{Storage, StorageOptions}
-
 import java.io.ByteArrayInputStream
 import scala.util.Try
 import scala.util.chaining.*
 
-object GcpCredentials {
+object Credentials {
 
   def fromResource(resource: String): Try[GoogleCredentials] = Try {
     getClass
@@ -15,17 +13,16 @@ object GcpCredentials {
       .pipe { GoogleCredentials.fromStream }
   }
 
-  val googleCredentialsFromEnv: Try[GoogleCredentials] = Try {
+  def fromEnvironmentVariable(name: String): Try[GoogleCredentials] = Try {
     sys
-      .env("GCP_CREDENTIALS")
+      .env(name)
       .getBytes
       .pipe { ByteArrayInputStream(_) }
       .pipe { GoogleCredentials.fromStream }
   }
 
-  val defaultGoogleCredentials: Try[GoogleCredentials] = Try {
-    GoogleCredentials.getApplicationDefault()
-  }
+  lazy val default: Try[GoogleCredentials] =
+    fromEnvironmentVariable("GCP_CREDENTIALS")
+      .orElse { Try { GoogleCredentials.getApplicationDefault() } }
 
-  val googleCredentials: Try[GoogleCredentials] = googleCredentialsFromEnv.orElse(defaultGoogleCredentials)
 }
