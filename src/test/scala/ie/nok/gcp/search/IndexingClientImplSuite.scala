@@ -15,7 +15,7 @@ class IndexingClientImplSuite extends munit.FunSuite {
   test("GoogleSearchApiImpl notifies Google's Indexing service of a delete") {
     instance
       .delete("https://nok.ie/example")
-      .getOrElse { fail("Failed to delete from Google Index") }
+      .getOrElse { fail("Failed to delete Google Index") }
   }
 
 }
