@@ -10,7 +10,7 @@ object Json {
     str
       .fromJson[A]
       .left
-      .map { error => Throwable("Failed to decode: $error, $str") }
+      .map { error => Throwable(s"Failed to decode: $error, $str") }
       .toTry
 
 }
