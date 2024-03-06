@@ -10,7 +10,7 @@ class StorageServiceImplSuite extends munit.FunSuite {
   val instance = StorageServiceImpl.default.get
 
   val environment = Environment.default
-  val bucket      = StorageConvention.bucket(environment)
+  val bucket      = StorageConvention.bucketName
 
   test("StorageServiceImpl write and read file to Google Cloud Storage") {
     val blobName = "/scala-libraries/test/blob.txt"

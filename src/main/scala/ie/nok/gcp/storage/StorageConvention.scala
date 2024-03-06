@@ -7,8 +7,8 @@ import scala.util.chaining.scalaUtilChainingOps
 
 object StorageConvention {
 
-  def bucket(env: Environment): String =
-    env.pipe {
+  val bucketName: String =
+    Environment.default.pipe {
       case Environment.Production => "nok-ie"
       case Environment.Other      => "nok-ie-dev"
     }
