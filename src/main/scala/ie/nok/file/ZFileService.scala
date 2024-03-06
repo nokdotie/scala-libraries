@@ -1,6 +1,6 @@
-package ie.nok.file.zio
+package ie.nok.file
 
-import ie.nok.codec.json.zio.ZJsonDecoder
+import ie.nok.codec.json.ZJson
 import java.io.File
 import zio.ZIO
 import zio.json.{EncoderOps, JsonCodec}
@@ -35,6 +35,6 @@ class ZFileServiceImpl[A](
 }
 
 object ZFileServiceImpl {
-  def jsonLines[A: JsonCodec]: ZFileService[A] =
-    ZFileServiceImpl(_.toJson, ZJsonDecoder.decode[A])
+  def default[A: JsonCodec]: ZFileService[A] =
+    ZFileServiceImpl(_.toJson, ZJson.decode[A])
 }

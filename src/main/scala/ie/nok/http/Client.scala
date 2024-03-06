@@ -1,11 +1,11 @@
 package ie.nok.http
 
-import ie.nok.codec.json.zio.ZJsonDecoder
+import ie.nok.codec.json.ZJson
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import zio.http.model.{Headers, Method}
 import zio.http.{Body, Client as ZioClient}
-import zio.json.JsonDecoder as ZIOJsonDecoder
+import zio.json.JsonDecoder
 import zio.nio.file.{Files, Path}
 import zio.stream.ZSink
 import zio.{Scope, ZIO}
@@ -24,14 +24,14 @@ object Client {
       .request(url, method, headers, content)
       .flatMap { _.body.asString }
 
-  def requestBodyAsJson[A: ZIOJsonDecoder](
+  def requestBodyAsJson[A: JsonDecoder](
       url: String,
       method: Method = Method.GET,
       headers: Headers = Headers.empty,
       content: Body = Body.empty
   ): ZIO[ZioClient, Throwable, A] =
     requestBody(url, method, headers, content)
-      .flatMap { ZJsonDecoder.decode[A] }
+      .flatMap { ZJson.decode[A] }
 
   def requestBodyAsHtml(
       url: String,

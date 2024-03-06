@@ -2,9 +2,9 @@ package ie.nok.codec.json
 
 import scala.util.Try
 import scala.util.chaining.scalaUtilChainingOps
-import _root_.zio.json.{DecoderOps, JsonDecoder}
+import zio.json.{DecoderOps, JsonDecoder}
 
-object JsonDecoder {
+object Json {
 
   def decode[A: JsonDecoder](str: String): Try[A] =
     str

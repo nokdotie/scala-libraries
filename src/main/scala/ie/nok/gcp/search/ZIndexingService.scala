@@ -1,6 +1,5 @@
-package ie.nok.gcp.search.zio
+package ie.nok.gcp.search
 
-import ie.nok.gcp.search.{IndexingService, IndexingServiceImpl}
 import scala.util.chaining.scalaUtilChainingOps
 import zio.{ZIO, ZLayer}
 

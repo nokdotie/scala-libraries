@@ -1,4 +1,4 @@
-package ie.nok.file.zio
+package ie.nok.file
 
 import ie.nok.zio.ZIOOps
 import zio.json.JsonCodec
@@ -10,9 +10,9 @@ class ZFileImplSuite extends munit.FunSuite {
   case class Line(foo: String, bar: Int, baz: Boolean)
   given JsonCodec[Line] = JsonCodec.derived[Line]
 
-  val zFileServiceImpl = ZFileServiceImpl.jsonLines[Line]
+  val zFileServiceImpl = ZFileServiceImpl.default[Line]
 
-  test("FileImplSuite write and read file") {
+  test("ZFileServiceImpl write and read file") {
     val written = List(
       Line("foo", 1, true),
       Line("bar", 2, false),
