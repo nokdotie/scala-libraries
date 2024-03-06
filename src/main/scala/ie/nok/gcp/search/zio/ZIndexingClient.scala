@@ -4,33 +4,33 @@ import ie.nok.gcp.search.{IndexingClient, IndexingClientImpl}
 import scala.util.chaining.scalaUtilChainingOps
 import zio.{ZIO, ZLayer}
 
-trait IndexingClientZio {
+trait ZIndexingClient {
 
   def update(url: String): ZIO[Any, Throwable, Unit]
   def delete(url: String): ZIO[Any, Throwable, Unit]
 
 }
 
-object IndexingClientZio {
+object ZIndexingClient {
 
-  def update(url: String): ZIO[IndexingClientZio, Throwable, Unit] = ZIO.serviceWithZIO[IndexingClientZio](_.update(url))
-  def delete(url: String): ZIO[IndexingClientZio, Throwable, Unit] = ZIO.serviceWithZIO[IndexingClientZio](_.delete(url))
+  def update(url: String): ZIO[ZIndexingClient, Throwable, Unit] = ZIO.serviceWithZIO[ZIndexingClient](_.update(url))
+  def delete(url: String): ZIO[ZIndexingClient, Throwable, Unit] = ZIO.serviceWithZIO[ZIndexingClient](_.delete(url))
 
 }
 
-class IndexingClientZioImpl(indexingClient: IndexingClient) extends IndexingClientZio {
+class ZIndexingClientImpl(indexingClient: IndexingClient) extends ZIndexingClient {
 
   def update(url: String): ZIO[Any, Throwable, Unit] = ZIO.attempt { indexingClient.update(url) }
   def delete(url: String): ZIO[Any, Throwable, Unit] = ZIO.attempt { indexingClient.delete(url) }
 
 }
 
-object IndexingClientZioImpl {
+object ZIndexingClientImpl {
 
-  val layer: ZLayer[Any, Throwable, IndexingClientZio] =
+  val layer: ZLayer[Any, Throwable, ZIndexingClient] =
     ZIO
       .fromTry { IndexingClientImpl.default }
-      .map { IndexingClientZioImpl(_) }
+      .map { ZIndexingClientImpl(_) }
       .pipe { ZLayer.fromZIO(_) }
 
 }
