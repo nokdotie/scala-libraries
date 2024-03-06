@@ -2,18 +2,18 @@ package ie.nok.file
 
 import ie.nok.codec.json.ZJson
 import java.io.File
-import zio.{Tag, ZIO}
+import zio.{Tag, ZIO, ZLayer}
 import zio.json.{EncoderOps, JsonCodec}
 import zio.nio.file.Files
 import zio.stream.{ZStream, ZSink, ZPipeline}
 
 trait ZFileService[A] {
-  def write(lines: ZStream[Any, Throwable, A]): ZIO[Any, Throwable, File]
+  def write[R](lines: ZStream[R, Throwable, A]): ZIO[R, Throwable, File]
   def read(file: File): ZStream[Any, Throwable, A]
 }
 
 object ZFileService {
-  def write[A: Tag](lines: ZStream[Any, Throwable, A]): ZIO[ZFileService[A], Throwable, File] =
+  def write[R, A: Tag](lines: ZStream[R, Throwable, A]): ZIO[R & ZFileService[A], Throwable, File] =
     ZIO.serviceWithZIO[ZFileService[A]](_.write(lines))
 
   def read[A: Tag](file: File): ZStream[ZFileService[A], Throwable, A] =
@@ -24,7 +24,7 @@ class ZFileServiceImpl[A](
     encode: A => String,
     decode: String => ZIO[Any, Throwable, A]
 ) extends ZFileService[A] {
-  override def write(lines: ZStream[Any, Throwable, A]): ZIO[Any, Throwable, File] = for {
+  override def write[R](lines: ZStream[R, Throwable, A]): ZIO[R, Throwable, File] = for {
     file <- Files.createTempFile(".tmp", Some("file-store-impl"), Nil).map { _.toFile }
     sink = ZSink.fromFile(file)
     _ <- lines
@@ -43,6 +43,8 @@ class ZFileServiceImpl[A](
 }
 
 object ZFileServiceImpl {
-  def default[A: JsonCodec]: ZFileService[A] =
-    ZFileServiceImpl(_.toJson, ZJson.decode[A])
+
+  def layer[A: Tag: JsonCodec]: ZLayer[Any, Throwable, ZFileService[A]] =
+    ZLayer.succeed { ZFileServiceImpl[A](_.toJson, ZJson.decode[A]) }
+
 }
