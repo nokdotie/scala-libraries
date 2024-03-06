@@ -10,44 +10,44 @@ import scala.util.Try
 import com.google.cloud.storage.StorageOptions
 import zio.{ZIO, ZLayer}
 
-trait ZStorageClient {
+trait ZStorageService {
   def write(bucketName: String, blobName: String, file: File): ZIO[Any, Throwable, Unit]
   def read(bucketName: String, blobName: String): ZIO[Any, Throwable, File]
   def listBlobNames(bucketName: String, blobGlobPattern: String): ZIO[Any, Throwable, Iterable[String]]
 }
 
-object ZStorageClient {
+object ZStorageService {
 
-  def write(bucketName: String, blobName: String, file: File): ZIO[ZStorageClient, Throwable, Unit] =
-    ZIO.serviceWithZIO[ZStorageClient](_.write(bucketName, blobName, file))
-  def read(bucketName: String, blobName: String): ZIO[ZStorageClient, Throwable, File] = ZIO.serviceWithZIO[ZStorageClient](_.read(bucketName, blobName))
-  def listBlobNames(bucketName: String, blobGlobPattern: String): ZIO[ZStorageClient, Throwable, Iterable[String]] =
-    ZIO.serviceWithZIO[ZStorageClient](_.listBlobNames(bucketName, blobGlobPattern))
+  def write(bucketName: String, blobName: String, file: File): ZIO[ZStorageService, Throwable, Unit] =
+    ZIO.serviceWithZIO[ZStorageService](_.write(bucketName, blobName, file))
+  def read(bucketName: String, blobName: String): ZIO[ZStorageService, Throwable, File] = ZIO.serviceWithZIO[ZStorageService](_.read(bucketName, blobName))
+  def listBlobNames(bucketName: String, blobGlobPattern: String): ZIO[ZStorageService, Throwable, Iterable[String]] =
+    ZIO.serviceWithZIO[ZStorageService](_.listBlobNames(bucketName, blobGlobPattern))
 
 }
 
-class ZStorageClientImpl(storageClient: StorageClient) extends ZStorageClient {
+class ZStorageServiceImpl(storageService: StorageService) extends ZStorageService {
 
   def write(bucketName: String, blobName: String, file: File): ZIO[Any, Throwable, Unit] = ZIO.fromTry {
-    storageClient.write(bucketName, blobName, file)
+    storageService.write(bucketName, blobName, file)
   }
 
   def read(bucketName: String, blobName: String): ZIO[Any, Throwable, File] = ZIO.fromTry {
-    storageClient.read(bucketName, blobName)
+    storageService.read(bucketName, blobName)
   }
 
   def listBlobNames(bucketName: String, blobGlobPattern: String): ZIO[Any, Throwable, Iterable[String]] = ZIO.fromTry {
-    storageClient.listBlobNames(bucketName, blobGlobPattern)
+    storageService.listBlobNames(bucketName, blobGlobPattern)
   }
 
 }
 
-object ZStorageClientImpl {
+object ZStorageServiceImpl {
 
-  val layer: ZLayer[Any, Throwable, ZStorageClient] =
+  val layer: ZLayer[Any, Throwable, ZStorageService] =
     ZIO
-      .fromTry { StorageClientImpl.default }
-      .map { ZStorageClientImpl(_) }
+      .fromTry { StorageServiceImpl.default }
+      .map { ZStorageServiceImpl(_) }
       .pipe { ZLayer.fromZIO(_) }
 
 }

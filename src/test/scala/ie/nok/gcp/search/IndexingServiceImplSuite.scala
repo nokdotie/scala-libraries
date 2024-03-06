@@ -1,7 +1,7 @@
 package ie.nok.gcp.search
 
-class IndexingClientImplSuite extends munit.FunSuite {
-  val instance = IndexingClientImpl.default.get
+class IndexingServiceImplSuite extends munit.FunSuite {
+  val instance = IndexingServiceImpl.default.get
 
   test("GoogleSearchApiImpl notifies Google's Indexing service of an update") {
     instance

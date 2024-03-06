@@ -6,13 +6,13 @@ import java.time.Instant
 import scala.io.Source
 import scala.util.chaining.scalaUtilChainingOps
 
-class StorageClientImplSuite extends munit.FunSuite {
-  val instance = StorageClientImpl.default.get
+class StorageServiceImplSuite extends munit.FunSuite {
+  val instance = StorageServiceImpl.default.get
 
   val environment = Environment.default
   val bucket      = StorageConvention.bucket(environment)
 
-  test("StorageClientImpl write and read file to Google Cloud Storage") {
+  test("StorageServiceImpl write and read file to Google Cloud Storage") {
     val blobName = "/scala-libraries/test/blob.txt"
     val uploaded = getClass()
       .getResource("/gcp/storage/blob.txt")
@@ -33,7 +33,7 @@ class StorageClientImplSuite extends munit.FunSuite {
     )
   }
 
-  test("StorageClientImpl list files written to Google Cloud Storage") {
+  test("StorageServiceImpl list files written to Google Cloud Storage") {
     val instant = Instant.now()
 
     val blobName = StorageConvention.blobNameVersioned("/scala-libraries/test", instant, "txt")

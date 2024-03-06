@@ -9,13 +9,13 @@ import scala.util.chaining.scalaUtilChainingOps
 import scala.util.Try
 import com.google.cloud.storage.StorageOptions
 
-trait StorageClient {
+trait StorageService {
   def write(bucketName: String, blobName: String, file: File): Try[Unit]
   def read(bucketName: String, blobName: String): Try[File]
   def listBlobNames(bucketName: String, blobGlobPattern: String): Try[Iterable[String]]
 }
 
-class StorageClientImpl(storage: Storage) extends StorageClient {
+class StorageServiceImpl(storage: Storage) extends StorageService {
 
   def write(bucketName: String, blobName: String, file: File): Try[Unit] = Try {
     val blobInfo = BlobInfo.newBuilder(bucketName, blobName).build()
@@ -42,9 +42,9 @@ class StorageClientImpl(storage: Storage) extends StorageClient {
 
 }
 
-object StorageClientImpl {
+object StorageServiceImpl {
 
-  lazy val default: Try[StorageClientImpl] =
+  lazy val default: Try[StorageServiceImpl] =
     Credentials.default
       .flatMap { credentials =>
         Try {
@@ -55,6 +55,6 @@ object StorageClientImpl {
             .getService
         }
       }
-      .map { StorageClientImpl(_) }
+      .map { StorageServiceImpl(_) }
 
 }

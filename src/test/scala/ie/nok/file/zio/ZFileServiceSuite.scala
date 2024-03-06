@@ -10,8 +10,7 @@ class ZFileImplSuite extends munit.FunSuite {
   case class Line(foo: String, bar: Int, baz: Boolean)
   given JsonCodec[Line] = JsonCodec.derived[Line]
 
-  val writer = ZFileWriterImpl.jsonLines[Line]
-  val reader = ZFileReaderImpl.jsonLines[Line]
+  val zFileServiceImpl = ZFileServiceImpl.jsonLines[Line]
 
   test("FileImplSuite write and read file") {
     val written = List(
@@ -22,9 +21,9 @@ class ZFileImplSuite extends munit.FunSuite {
 
     val stream = ZStream.fromIterable(written)
 
-    writer
+    zFileServiceImpl
       .write(stream)
-      .flatMap { file => reader.read(file).runCollect }
+      .flatMap { file => zFileServiceImpl.read(file).runCollect }
       .map { _.toList }
       .map { read => assertEquals(written, read) }
       .pipe { ZIOOps.unsafeRun }
