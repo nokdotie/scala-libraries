@@ -1,4 +1,4 @@
-package ie.nok.base64
+package ie.nok.codec.base64
 
 import java.util.Base64
 import scala.util.chaining.scalaUtilChainingOps
