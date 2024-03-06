@@ -6,16 +6,16 @@ import com.google.api.services.indexing.v3.model.UrlNotification
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
 import com.google.auth.http.HttpCredentialsAdapter
-import ie.nok.gcp.safe.GcpCredentials
+import ie.nok.gcp.Credentials
 import scala.util.chaining.scalaUtilChainingOps
 import scala.util.Try
 
-trait IndexingClient {
+trait IndexingService {
   def update(url: String): Try[Unit]
   def delete(url: String): Try[Unit]
 }
 
-class IndexingClientImpl(indexing: Indexing) extends IndexingClient {
+class IndexingServiceImpl(indexing: Indexing) extends IndexingService {
 
   def update(url: String): Try[Unit] = UrlNotification().setUrl(url).setType("URL_UPDATED").pipe(request)
   def delete(url: String): Try[Unit] = UrlNotification().setUrl(url).setType("URL_DELETED").pipe(request)
@@ -28,18 +28,18 @@ class IndexingClientImpl(indexing: Indexing) extends IndexingClient {
   }
 }
 
-object IndexingClientImpl {
+object IndexingServiceImpl {
 
-  private def fromCredentials(credentials: GoogleCredentials): IndexingClient = {
+  private def fromCredentials(credentials: GoogleCredentials): IndexingService = {
     val transport              = GoogleNetHttpTransport.newTrustedTransport();
     val jsonFactory            = JacksonFactory()
     val httpRequestInitializer = HttpCredentialsAdapter(credentials);
     val indexing               = Indexing(transport, jsonFactory, httpRequestInitializer)
 
-    IndexingClientImpl(indexing)
+    IndexingServiceImpl(indexing)
   }
 
-  lazy val instance: Try[IndexingClient] = GcpCredentials
+  lazy val default: Try[IndexingService] = Credentials
     .fromResource("/gcp/google-search-console.json")
     .map { _.createScoped(IndexingScopes.INDEXING) }
     .map { fromCredentials }

@@ -1,6 +1,6 @@
 package ie.nok.env
 
-import zio.{System, ZIO}
+import scala.util.chaining.scalaUtilChainingOps
 
 enum Environment {
   case Production
@@ -8,11 +8,13 @@ enum Environment {
 }
 
 object Environment {
-  val get: ZIO[Any, SecurityException, Environment] =
-    System
-      .env("ENV")
-      .map {
+  def fromEnvironmentVariable(name: String): Environment =
+    sys.env
+      .get(name)
+      .pipe {
         case Some("production") => Environment.Production
         case _                  => Environment.Other
       }
+
+  def default: Environment = fromEnvironmentVariable("ENV")
 }

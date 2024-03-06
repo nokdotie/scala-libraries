@@ -11,4 +11,5 @@ jobs:
   scala:
     uses: nokdotie/github-workflows/.github/workflows/scala-test.yml@main
     secrets:
+      GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
       GH_TOKEN_READ_PACKAGES: ${{ secrets.GH_TOKEN_READ_PACKAGES }}

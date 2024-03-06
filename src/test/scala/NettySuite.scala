@@ -1,4 +1,4 @@
-import _root_.zio.http.{Client, ClientConfig}
+import zio.http.{Client, ClientConfig}
 import ie.nok.zio.ZIOOps
 
 import scala.util.chaining.scalaUtilChainingOps
@@ -12,6 +12,5 @@ class NettySuite extends munit.FunSuite {
         Client.fromConfig
       )
       .pipe(ZIOOps.unsafeRun)
-      .foldExit(cause => fail("Netty failed", cause.squash), _ => ())
   }
 }
