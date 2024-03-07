@@ -1,6 +1,6 @@
 package ie.nok.http
 
-import ie.nok.codec.json.ZJson
+import ie.nok.codecs.json.ZJson
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import zio.http.model.{Headers, Method}
