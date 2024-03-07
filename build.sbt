@@ -14,7 +14,6 @@ lazy val root = project
       .format(Instant.now()),
     scalaVersion := scala3Version,
     libraryDependencies ++= Seq(
-      "ch.hsr"              % "geohash"                      % "1.4.0",
       "com.google.apis"     % "google-api-services-indexing" % "v3-rev20230927-2.0.0",
       "com.google.firebase" % "firebase-admin"               % "9.2.0",
       "dev.zio"            %% "zio"                          % "2.0.20",
