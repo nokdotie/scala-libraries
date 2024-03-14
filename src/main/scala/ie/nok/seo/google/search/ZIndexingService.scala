@@ -1,4 +1,4 @@
-package ie.nok.google.search
+package ie.nok.seo.google.search
 
 import scala.util.chaining.scalaUtilChainingOps
 import zio.{ZIO, ZLayer}
