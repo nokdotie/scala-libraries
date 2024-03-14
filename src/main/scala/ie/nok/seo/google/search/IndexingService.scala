@@ -1,4 +1,4 @@
-package ie.nok.google.search
+package ie.nok.seo.google.search
 
 import com.google.api.client.json.jackson2.JacksonFactory
 import com.google.api.services.indexing.v3.{Indexing, IndexingScopes}

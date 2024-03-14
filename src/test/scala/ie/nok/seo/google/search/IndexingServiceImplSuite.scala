@@ -1,4 +1,4 @@
-package ie.nok.google.search
+package ie.nok.seo.google.search
 
 class IndexingServiceImplSuite extends munit.FunSuite {
   val instance = IndexingServiceImpl.default.get
