@@ -32,8 +32,10 @@ class ZIndexNowServiceImpl(client: Client) extends ZIndexNowService {
         Headers("content-type", "application/json"),
         Body.fromString(payload.toJson)
       )
-      .filterOrDie { _.status.isSuccess } { Throwable("Failed to submit URLs") }
-      .unit
+      .flatMap {
+        case response if response.status.isSuccess => ZIO.unit
+        case response => response.body.asString.flatMap { body => ZIO.fail(Throwable(s"Failed to submit URLs: ${response.status}, ${body}")) }
+      }
       .provide(ZLayer.succeed(client))
   }
 }
