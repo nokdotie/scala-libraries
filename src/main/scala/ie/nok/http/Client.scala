@@ -40,7 +40,7 @@ object Client {
       content: Body = Body.empty
   ): ZIO[ZioClient, Throwable, Document] =
     requestBody(url, method, headers, content)
-      .flatMap { html => ZIO.attempt { Jsoup.parse(html) } }
+      .flatMap { html => ZIO.attempt { Jsoup.parse(html, url) } }
 
   def requestBodyAsTempFile(
       url: String,
