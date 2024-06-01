@@ -15,7 +15,7 @@ lazy val root = project
     scalaVersion := scala3Version,
     libraryDependencies ++= Seq(
       "com.google.apis"     % "google-api-services-indexing" % "v3-rev20230927-2.0.0",
-      "com.google.firebase" % "firebase-admin"               % "9.2.0",
+      "com.google.firebase" % "firebase-admin"               % "9.3.0",
       "dev.zio"            %% "zio"                          % "2.0.20",
       "dev.zio"            %% "zio-http"                     % "0.0.5",
       "dev.zio"            %% "zio-json"                     % "0.6.2",
