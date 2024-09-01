@@ -18,7 +18,7 @@ lazy val root = project
       "com.google.firebase" % "firebase-admin"               % "9.3.0",
       "dev.zio"            %% "zio"                          % "2.1.9",
       "dev.zio"            %% "zio-http"                     % "0.0.5",
-      "dev.zio"            %% "zio-json"                     % "0.6.2",
+      "dev.zio"            %% "zio-json"                     % "0.7.3",
       "dev.zio"            %% "zio-nio"                      % "2.0.2",
       "io.netty"            % "netty-all"                    % "4.1.110.Final",
       "org.jsoup"           % "jsoup"                        % "1.17.2",
