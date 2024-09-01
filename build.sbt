@@ -22,7 +22,7 @@ lazy val root = project
       "dev.zio"            %% "zio-nio"                      % "2.0.2",
       "io.netty"            % "netty-all"                    % "4.1.112.Final",
       "org.jsoup"           % "jsoup"                        % "1.18.1",
-      "org.scalameta"      %% "munit"                        % "1.0.0" % Test,
+      "org.scalameta"      %% "munit"                        % "1.0.1" % Test,
       "org.scalameta"      %% "munit-scalacheck"             % "1.0.0" % Test
     ),
     githubOwner            := "nokdotie",
