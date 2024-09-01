@@ -16,7 +16,7 @@ lazy val root = project
     libraryDependencies ++= Seq(
       "com.google.apis"     % "google-api-services-indexing" % "v3-rev20230927-2.0.0",
       "com.google.firebase" % "firebase-admin"               % "9.3.0",
-      "dev.zio"            %% "zio"                          % "2.0.22",
+      "dev.zio"            %% "zio"                          % "2.1.9",
       "dev.zio"            %% "zio-http"                     % "0.0.5",
       "dev.zio"            %% "zio-json"                     % "0.6.2",
       "dev.zio"            %% "zio-nio"                      % "2.0.2",
